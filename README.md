@@ -2,17 +2,10 @@
 
 <div align="center">
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=CreateCN&show_icons=true&theme=default)
 ![Streak](https://github-readme-streak-stats.herokuapp.com/?user=CreateCN&theme=default)
 
 </div>
 <div align="center">
-
-![top-langs](https://github-readme-stats.vercel.app/api/top-langs/?username=CreateCN&theme=vue&show_icons=true&hide_border=false&layout=compact)
-
-PS: Most used languages is not realistic due to forking some Minecraft mods
-
-PS：由于Fork了一些Minecraft模组，所以使用语言统计并不真实
 </div>
 
 ## 🎮 About Me / 关于我
@@ -20,7 +13,7 @@ PS：由于Fork了一些Minecraft模组，所以使用语言统计并不真实
 > *"Debug every detail, break every boundary"*  
 > *"调试每处细节，突破每个边界"*
 
-- 🎓 High School Student | 高中生
+- 🎓 Undergraduate | 本科生
 - 👨‍💻 Full-Stack & Desktop Developer | 全栈 & 桌面开发
 - 🎯 Focused on **Full-Stack Development, Desktop Apps, Game Modding** | 专注于**全栈开发、桌面应用、游戏模组开发**
 - 🎮 Game Enthusiast & Computer Lover | 游戏爱好者 & 计算机迷
@@ -97,6 +90,6 @@ If my projects help you, feel free to:
 </div>
 <div align="center">
 
-Written by DeepSeek
+Powered by DeepSeek
 
 </div>
