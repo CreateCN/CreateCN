@@ -19,6 +19,8 @@
 - 🎮 Game Enthusiast & Computer Lover | 游戏爱好者 & 计算机迷
 - ⚡ Passionate about technology and anime games | 热爱技术和二次元游戏
 
+  ![Metrics](/github-metrics.svg)
+
 ## 💻 Tech Stack / 技术栈
 
 <div align="center">
