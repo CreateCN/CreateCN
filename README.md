@@ -13,7 +13,7 @@
 > *"Debug every detail, break every boundary"*  
 > *"调试每处细节，突破每个边界"*
 
-- 🎓 Undergraduate | 本科生
+- 🎓 SC Undergraduate | 计算机科学与技术专业本科生（在读）
 - 👨‍💻 Full-Stack & Desktop Developer | 全栈 & 桌面开发
 - 🎯 Focused on **Full-Stack Development, Desktop Apps, Game Modding** | 专注于**全栈开发、桌面应用、游戏模组开发**
 - 🎮 Game Enthusiast & Computer Lover | 游戏爱好者 & 计算机迷
