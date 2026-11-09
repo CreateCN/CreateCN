@@ -13,7 +13,39 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: lowlighter/metrics@latest
+      - name: 检查 Metrics 的 GitHub 令牌
+        shell: bash
+        env:
+          METRICS_TOKEN: ${{ secrets.GHKEY }}
+        run: |
+          report_error() {
+            printf '::error title=Metrics 令牌检查失败::%s\n' "$1"
+            printf '### Metrics 令牌检查失败\n\n%s\n' "$1" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          }
+
+          if [[ -z "${METRICS_TOKEN//[[:space:]]/}" ]]; then
+            report_error '缺少 GHKEY。请在仓库 Settings → Environments → key 中配置 GitHub 个人访问令牌，或检查仓库级 Actions Secret。'
+          fi
+
+          if ! status=$(curl --disable --silent --output /dev/null --write-out '%{http_code}' \
+            --connect-timeout 10 --max-time 20 \
+            --header @- --header 'Accept: application/vnd.github+json' \
+            "$GITHUB_API_URL/user" <<< "Authorization: Bearer $METRICS_TOKEN"); then
+            report_error '无法连接 GitHub API。请检查 GitHub 服务状态后重试。'
+          fi
+
+          case "$status" in
+            200) printf 'GHKEY 认证通过。\n' ;;
+            401) report_error 'GitHub 拒绝了 GHKEY（HTTP 401）。请检查令牌是否过期或被撤销，并更新 key 环境或仓库级 Actions 中的 GHKEY。' ;;
+            403|429) report_error "GitHub API 拒绝或限制了请求（HTTP $status）。请检查令牌访问策略和 API 限流后重试。" ;;
+            5[0-9][0-9]) report_error "GitHub API 服务异常（HTTP $status）。请稍后重试。" ;;
+            *) report_error "未知错误。令牌检查收到意外的 GitHub API 响应（HTTP $status）。" ;;
+          esac
+
+      - name: 生成 GitHub Metrics
+        id: metrics
+        uses: lowlighter/metrics@latest
         with:
           # Your GitHub token
           # The following scopes are required:
@@ -70,3 +102,11 @@ jobs:
           plugin_starlists_limit_languages: 8
           plugin_starlists_limit_repositories: 2
           plugin_starlists_shuffle_repositories: yes
+
+      - name: 报告 Metrics 未知错误
+        if: ${{ failure() && steps.metrics.outcome == 'failure' }}
+        shell: bash
+        run: |
+          message='未知错误。GHKEY 已通过认证，但生成 Metrics 失败。请展开「生成 GitHub Metrics」查看原始报错。'
+          printf '::error title=Metrics 生成失败::%s\n' "$message"
+          printf '### Metrics 生成失败\n\n%s\n' "$message" >> "$GITHUB_STEP_SUMMARY"
