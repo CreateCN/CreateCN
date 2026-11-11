@@ -44,7 +44,8 @@ jobs:
           esac
 
       - name: 生成 GitHub Metrics
-        id: metrics
+        # Metrics derives the official action owner from github.action (the step id).
+        id: lowlightermetrics
         uses: lowlighter/metrics@latest
         with:
           # Your GitHub token
@@ -104,7 +105,7 @@ jobs:
           plugin_starlists_shuffle_repositories: yes
 
       - name: 报告 Metrics 未知错误
-        if: ${{ failure() && steps.metrics.outcome == 'failure' }}
+        if: ${{ failure() && steps.lowlightermetrics.outcome == 'failure' }}
         shell: bash
         run: |
           message='未知错误。GHKEY 已通过认证，但生成 Metrics 失败。请展开「生成 GitHub Metrics」查看原始报错。'
